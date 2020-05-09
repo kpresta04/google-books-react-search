@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import axios from "axios";
 import BookCard from "../BookCard/BookCard.component";
 
 function MediaControlCard(props) {
@@ -22,8 +23,8 @@ function MediaControlCard(props) {
 					title={result.volumeInfo.title}
 					desc={result.volumeInfo.description}
 					author={result.volumeInfo.authors}
-					commandText="Save"
 					link={result.volumeInfo.canonicalVolumeLink}
+					commandText="Save"
 				/>
 				/* <Card
 					className={classes.root}

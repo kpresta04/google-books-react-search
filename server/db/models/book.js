@@ -6,10 +6,10 @@ var Schema = mongoose.Schema;
 
 var BookSchema = new Schema({
 	author: [String],
-	description: String,
-	imageURL: String,
-	title: String,
-	bookURL: String,
+	desc: { type: String, required: true, max: 10000 },
+	image: { type: String, required: true, max: 10000 },
+	link: { type: String, required: true, max: 10000 },
+	title: { type: String, required: true, max: 10000 },
 });
 
 const Book = mongoose.model("Book", BookSchema);

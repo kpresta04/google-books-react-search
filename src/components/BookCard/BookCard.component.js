@@ -1,7 +1,21 @@
 import React from "react";
 import "./BookCard.css";
+import axios from "axios";
 
 export default function BookCard(props) {
+	const saveBook = () => {
+		axios
+			.post("/save/", {
+				image: props.image,
+				title: props.title,
+				desc: props.desc,
+				author: props.author,
+				link: props.link,
+			})
+			.then(function (response) {
+				console.log(response);
+			});
+	};
 	return (
 		<div>
 			<div
@@ -31,7 +45,10 @@ export default function BookCard(props) {
 								View
 							</button>
 						</a>
-						<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+						<button
+							onClick={() => saveBook()}
+							className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+						>
 							{props.commandText}
 						</button>
 					</div>

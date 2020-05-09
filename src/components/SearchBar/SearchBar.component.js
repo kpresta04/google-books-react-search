@@ -43,7 +43,7 @@ function CustomizedInputBase(props) {
 		<Paper component="form" className={classes.root}>
 			<InputBase
 				className={classes.input}
-				placeholder="Search Google Books"
+				placeholder="Search for a book"
 				inputProps={{ "aria-label": "search google maps" }}
 				onSubmit={handleSubmit}
 				id="searchBar"

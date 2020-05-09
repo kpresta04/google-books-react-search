@@ -21,6 +21,9 @@ function MediaControlCard(props) {
 					key={index}
 					title={result.volumeInfo.title}
 					desc={result.volumeInfo.description}
+					author={result.volumeInfo.authors}
+					commandText="Save"
+					link={result.volumeInfo.canonicalVolumeLink}
 				/>
 				/* <Card
 					className={classes.root}
@@ -38,7 +41,7 @@ function MediaControlCard(props) {
 							</Typography>
 							<Typography variant="subtitle1" color="textSecondary">
 								{
-									result.volumeInfo.authors
+									
 									/* result.volumeInfo.authors.map((author) => {
 										return author + " ";
 									}) */

@@ -4,8 +4,8 @@ import Paper from "@material-ui/core/Paper";
 import InputBase from "@material-ui/core/InputBase";
 import IconButton from "@material-ui/core/IconButton";
 import SearchIcon from "@material-ui/icons/Search";
-import APIkey from "../../apiKey";
-import axios from "axios";
+import { connect } from "react-redux";
+import search from "../../actions/search";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -27,24 +27,16 @@ const useStyles = makeStyles((theme) => ({
 		margin: 4,
 	},
 }));
-const search = async (str) => {
-	const url = `https://www.googleapis.com/books/v1/volumes?q=${str}&key=${APIkey}`;
-	try {
-		const response = await axios.get(url);
-		return response.data.items;
-	} catch (error) {
-		console.error(error);
-	}
-};
 
-export default function CustomizedInputBase() {
+function CustomizedInputBase(props) {
 	const [formState, formStateSet] = useState("");
 	const classes = useStyles();
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		props.dispatch(search(formState));
 
-		const results = await search(formState);
-		console.log(results);
+		// const results = await search(formState);
+		// console.log(results);
 	};
 
 	return (
@@ -70,3 +62,10 @@ export default function CustomizedInputBase() {
 		</Paper>
 	);
 }
+const mapStateToProps = (state) => {
+	return {
+		results: state.results,
+	};
+};
+
+export default connect(mapStateToProps)(CustomizedInputBase);

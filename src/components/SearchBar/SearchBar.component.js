@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import InputBase from "@material-ui/core/InputBase";
-import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
-import DirectionsIcon from "@material-ui/icons/Directions";
+import APIkey from "../../apiKey";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -28,13 +27,25 @@ const useStyles = makeStyles((theme) => ({
 		margin: 4,
 	},
 }));
-const handleSubmit = (e) => {
-	e.preventDefault();
+const search = async (str) => {
+	const url = `https://www.googleapis.com/books/v1/volumes?q=${str}&key=${APIkey}`;
+	try {
+		const response = await axios.get(url);
+		return response.data.items;
+	} catch (error) {
+		console.error(error);
+	}
 };
 
 export default function CustomizedInputBase() {
 	const [formState, formStateSet] = useState("");
 	const classes = useStyles();
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+
+		const results = await search(formState);
+		console.log(results);
+	};
 
 	return (
 		<Paper component="form" className={classes.root}>
@@ -43,9 +54,9 @@ export default function CustomizedInputBase() {
 				placeholder="Search Google Books"
 				inputProps={{ "aria-label": "search google maps" }}
 				onSubmit={handleSubmit}
-				id="yolo"
+				id="searchBar"
 				onChange={() => {
-					formStateSet(document.querySelector("#yolo").value);
+					formStateSet(document.querySelector("#searchBar").value);
 				}}
 			/>
 			<IconButton

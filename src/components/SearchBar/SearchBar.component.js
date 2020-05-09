@@ -5,8 +5,21 @@ import InputBase from "@material-ui/core/InputBase";
 import IconButton from "@material-ui/core/IconButton";
 import SearchIcon from "@material-ui/icons/Search";
 import { connect } from "react-redux";
-import search from "../../actions/search";
+import searchAction from "../../actions/search";
 
+import axios from "axios";
+import APIkey from "../../apiKey";
+
+const search = async (str) => {
+	const url = `https://www.googleapis.com/books/v1/volumes?q=${str}&key=${APIkey}`;
+	try {
+		const response = await axios.get(url);
+
+		return response.data.items;
+	} catch (error) {
+		console.log(error);
+	}
+};
 const useStyles = makeStyles((theme) => ({
 	root: {
 		padding: "2px 4px",
@@ -33,7 +46,11 @@ function CustomizedInputBase(props) {
 	const classes = useStyles();
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		props.dispatch(search(formState));
+		if (formState) {
+			const response = await search(formState);
+
+			props.dispatch(searchAction(response));
+		}
 
 		// const results = await search(formState);
 		// console.log(results);
@@ -50,6 +67,7 @@ function CustomizedInputBase(props) {
 				onChange={() => {
 					formStateSet(document.querySelector("#searchBar").value);
 				}}
+				label="Error"
 			/>
 			<IconButton
 				type="submit"

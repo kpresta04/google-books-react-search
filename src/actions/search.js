@@ -1,4 +1,5 @@
-export default (searchTerm) => ({
+const searchAction = (results) => ({
 	type: "SEARCH",
-	searchTerm,
+	results,
 });
+export default searchAction;

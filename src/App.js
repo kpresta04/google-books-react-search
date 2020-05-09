@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import SearchBar from "./components/SearchBar/SearchBar.component";
 import HeroText from "./components/HeroText/HeroText.component";
-import BookCard from "./components/BookCard/BookCard.component";
+import BookList from "./components/BookList/BookList.component";
 import { connect } from "react-redux";
 
 function App(props) {
@@ -10,7 +10,7 @@ function App(props) {
 		<div className="App">
 			<HeroText />
 			<SearchBar />
-			<BookCard />
+			<BookList />
 		</div>
 	);
 }

@@ -1,93 +1,43 @@
-import React, { useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
+import React from "react";
+import "./BookCard.css";
 
-import Typography from "@material-ui/core/Typography";
-
-import { connect } from "react-redux";
-
-const useStyles = makeStyles((theme) => ({
-	root: {
-		display: "flex",
-	},
-	details: {
-		display: "flex",
-		flexDirection: "column",
-	},
-	content: {
-		flex: "1 0 auto",
-		alignItems: "center",
-	},
-	cover: {
-		width: 128,
-		height: 190,
-	},
-	controls: {
-		display: "flex",
-		alignItems: "center",
-		paddingLeft: theme.spacing(1),
-		paddingBottom: theme.spacing(1),
-	},
-	playIcon: {
-		height: 38,
-		width: 38,
-	},
-}));
-
-function MediaControlCard(props) {
-	useEffect(() => {
-		console.log(props.results);
-	}, [props.results]);
-
-	const classes = useStyles();
-
-	//title
-	//authors []
-	//[0].volumeInfo.imageLinks.smallThumbnail
-	//description
-	//canonicalVolumeLink
-
+export default function BookCard(props) {
 	return (
 		<div>
-			{props.results.map((result, index) => (
-				<Card
-					className={classes.root}
-					key={index}
-					style={{ outline: "4px black solid" }}
-				>
-					<CardMedia
-						className={classes.cover}
-						image={result.volumeInfo.imageLinks.smallThumbnail}
-						title="Live from space album cover"
-					/>
-					<div className={classes.details}>
-						<CardContent className={classes.content}>
-							<Typography component="h5" variant="h5">
-								{result.volumeInfo.title}
-							</Typography>
-							<Typography variant="subtitle1" color="textSecondary">
-								{
-									result.volumeInfo.authors
-									/* result.volumeInfo.authors.map((author) => {
-										return author + " ";
-									}) */
-								}
-							</Typography>
-						</CardContent>
+			<div className="max-w-sm w-full lg:max-w-full lg:flex">
+				<div className="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden">
+					<img src={props.image} alt="Book"></img>
+				</div>
+				<div className="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+					<div className="mb-8">
+						<p className="text-sm text-gray-600 flex items-center">
+							<svg
+								className="fill-current text-gray-500 w-3 h-3 mr-2"
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 20 20"
+							>
+								<path d="M4 8V6a6 6 0 1 1 12 0v2h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-8c0-1.1.9-2 2-2h1zm5 6.73V17h2v-2.27a2 2 0 1 0-2 0zM7 6v2h6V6a3 3 0 0 0-6 0z" />
+							</svg>
+							Members only
+						</p>
+						<div className="text-gray-900 font-bold text-xl mb-2">
+							{props.title}
+						</div>
+						<p className="text-gray-700 text-base">{props.desc}</p>
 					</div>
-					<div>{result.volumeInfo.description}</div>
-				</Card>
-			))}
+					<div className="flex items-center">
+						<img
+							className="w-10 h-10 rounded-full mr-4"
+							src="/img/jonathan.jpg"
+							alt="Avatar of Jonathan Reinink"
+						/>
+						<div className="text-sm">
+							<p className="text-gray-900 leading-none">Jonathan Reinink</p>
+							<p className="text-gray-600">Aug 18</p>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	);
 }
-
-const mapStateToProps = (state) => {
-	return {
-		results: state.results,
-	};
-};
-
-export default connect(mapStateToProps)(MediaControlCard);

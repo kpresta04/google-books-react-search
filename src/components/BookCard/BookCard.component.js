@@ -2,7 +2,7 @@ import React from "react";
 import "./BookCard.css";
 import axios from "axios";
 import { connect } from "react-redux";
-import saveBookAction from "../../actions/saveBook";
+// import saveBookAction from "../../actions/saveBook";
 import deleteBookAction from "../../actions/deleteBook";
 
 function BookCard(props) {
@@ -22,6 +22,9 @@ function BookCard(props) {
 	};
 	const deleteBook = () => {
 		props.dispatch(deleteBookAction(props.id));
+
+		const deleteURL = `/books/${props.id}`;
+		axios.delete(deleteURL);
 	};
 	return (
 		<div>

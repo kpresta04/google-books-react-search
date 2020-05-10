@@ -42,6 +42,13 @@ app.get("/books", async (req, res) => {
 		res.send(error);
 	}
 });
+
+app.delete("/books/:id", (req, res) => {
+	Book.deleteOne({ _id: req.params.id }, function (err) {
+		if (err) return res.send(err);
+		// deleted at most one tank document
+	});
+});
 app.get("*", (req, res) => {
 	res.sendFile(path.join(publicPath, "index.html"));
 });

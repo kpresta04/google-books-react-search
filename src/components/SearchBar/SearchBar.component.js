@@ -8,8 +8,7 @@ import { connect } from "react-redux";
 import searchAction from "../../actions/search";
 
 import axios from "axios";
-import APIkey from "../../apiKey";
-
+const APIkey = "AIzaSyAd2ZiCGgg-Oq-_F8ctUABllI41pQezQsk";
 const search = async (str) => {
 	const url = `https://www.googleapis.com/books/v1/volumes?q=${str}&key=${APIkey}`;
 	try {

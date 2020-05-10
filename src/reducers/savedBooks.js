@@ -10,7 +10,9 @@ const savedBooks = (state = [], action) => {
 			state = filteredArray;
 
 			return state;
-
+		case "CLEAR_STATE":
+			state = [];
+			return state;
 		default:
 			return state;
 	}

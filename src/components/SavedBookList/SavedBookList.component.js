@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import axios from "axios";
 import saveBook from "../../actions/saveBook";
 import BookCard from "../BookCard/BookCard.component";
+import clearState from "../../actions/clearState";
 
 function MediaControlCard(props) {
 	useEffect(() => {
@@ -20,6 +21,10 @@ function MediaControlCard(props) {
 				// handle error
 				console.log(error);
 			});
+
+		return () => {
+			props.dispatch(clearState());
+		};
 	}, []);
 
 	//title

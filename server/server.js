@@ -8,8 +8,11 @@ const Book = require("./db/models/book");
 const app = express();
 app.use(express.static(publicPath));
 //Set up default mongoose connection
+// const mongoDB =
+// 	"mongodb+srv://main:rsHmhNs8bib_ni4@cluster0-l36fj.mongodb.net/test?retryWrites=true&w=majority";
 const mongoDB =
-	"mongodb+srv://dbUser:xSMa09CDQUUg9Tx4@cluster0-l36fj.mongodb.net/test?retryWrites=true&w=majority";
+	"mongodb://main:rsHmhNs8bib_ni4@ds141611.mlab.com:41611/heroku_d0f84p7s";
+
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 
 //Get the default connection

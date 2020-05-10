@@ -1,8 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import axios from "axios";
+import saveBook from "../../actions/saveBook";
 import BookCard from "../BookCard/BookCard.component";
 
 function MediaControlCard(props) {
+	useEffect(() => {
+		axios
+			.get("/books")
+			.then(function (response) {
+				// handle success
+				const dbObject = response.data;
+
+				dbObject.forEach((book) => {
+					props.dispatch(saveBook(book));
+				});
+			})
+			.catch(function (error) {
+				// handle error
+				console.log(error);
+			});
+	}, []);
+
 	//title
 	//authors []
 	//[0].volumeInfo.imageLinks.smallThumbnail
@@ -11,15 +30,16 @@ function MediaControlCard(props) {
 
 	return (
 		<div>
-			{props.results.map((result, index) => (
+			{props.savedBooks.map((book, index) => (
 				<BookCard
-					image={result.volumeInfo.imageLinks.smallThumbnail}
+					image={book.image}
 					key={index}
-					title={result.volumeInfo.title}
-					desc={result.volumeInfo.description}
-					author={result.volumeInfo.authors}
-					link={result.volumeInfo.canonicalVolumeLink}
-					commandText="Save"
+					title={book.title}
+					desc={book.desc}
+					author={book.author}
+					link={book.link}
+					commandText="Delete"
+					id={book._id}
 				/>
 				/* <Card
 					className={classes.root}
@@ -51,7 +71,7 @@ function MediaControlCard(props) {
 
 const mapStateToProps = (state) => {
 	return {
-		results: state.results,
+		savedBooks: state.savedBooks,
 	};
 };
 

@@ -1,20 +1,27 @@
 import React from "react";
 import "./BookCard.css";
 import axios from "axios";
+import { connect } from "react-redux";
+import saveBookAction from "../../actions/saveBook";
+import deleteBookAction from "../../actions/deleteBook";
 
-export default function BookCard(props) {
+function BookCard(props) {
 	const saveBook = () => {
-		axios
-			.post("/save/", {
-				image: props.image,
-				title: props.title,
-				desc: props.desc,
-				author: props.author,
-				link: props.link,
-			})
-			.then(function (response) {
-				console.log(response);
-			});
+		const bookObject = {
+			image: props.image,
+			title: props.title,
+			desc: props.desc,
+			author: props.author,
+			link: props.link,
+		};
+		axios.post("/save/", bookObject).then(function (response) {
+			console.log(response);
+		});
+
+		// props.dispatch(saveBookAction(bookObject));
+	};
+	const deleteBook = () => {
+		props.dispatch(deleteBookAction(props.id));
 	};
 	return (
 		<div>
@@ -46,7 +53,13 @@ export default function BookCard(props) {
 							</button>
 						</a>
 						<button
-							onClick={() => saveBook()}
+							onClick={() => {
+								if (props.commandText === "Save") {
+									saveBook();
+								} else {
+									deleteBook();
+								}
+							}}
 							className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
 						>
 							{props.commandText}
@@ -57,3 +70,11 @@ export default function BookCard(props) {
 		</div>
 	);
 }
+
+const mapStateToProps = (state) => {
+	return {
+		savedBooks: state.savedBooks,
+	};
+};
+
+export default connect(mapStateToProps)(BookCard);

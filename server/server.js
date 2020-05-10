@@ -25,7 +25,7 @@ db.once("open", () => {
 
 app.use(express.json());
 
-app.post("/save/", (req, res) => {
+app.post("/save", (req, res) => {
 	const obj = req.body;
 	console.log(obj);
 	const newBook = new Book(obj);
@@ -34,7 +34,14 @@ app.post("/save/", (req, res) => {
 		return res.json(savedBook);
 	});
 });
-
+app.get("/books", async (req, res) => {
+	try {
+		const results = await Book.find({});
+		res.send(results);
+	} catch (error) {
+		res.send(error);
+	}
+});
 app.get("*", (req, res) => {
 	res.sendFile(path.join(publicPath, "index.html"));
 });

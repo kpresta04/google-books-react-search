@@ -6,8 +6,14 @@ const port = process.env.PORT || 5000;
 const mongoose = require("mongoose");
 const Book = require("./db/models/book");
 const app = express();
-app.use(express.static(publicPath));
 //Set up default mongoose connection
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+// Serve up static assets (usually on heroku)
+if (process.env.NODE_ENV === "production") {
+	app.use(express.static("client/build"));
+}
 // const mongoDB =
 // 	"mongodb+srv://main:rsHmhNs8bib_ni4@cluster0-l36fj.mongodb.net/test?retryWrites=true&w=majority";
 const mongoDB =
@@ -25,8 +31,6 @@ db.once("open", () => {
 		`You have successfully connected to your mongo database: ${mongoDB}`
 	);
 });
-
-app.use(express.json());
 
 app.post("/save", (req, res) => {
 	const obj = req.body;
@@ -53,7 +57,8 @@ app.delete("/books/:id", (req, res) => {
 	});
 });
 app.get("*", (req, res) => {
-	res.sendFile(path.join(publicPath, "index.html"));
+	// res.sendFile(path.join(publicPath, "index.html"));
+	res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
 
 app.listen(port, () => {

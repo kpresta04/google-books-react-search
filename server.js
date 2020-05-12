@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
-	app.use(express.static("client/build"));
+	app.use(express.static("./client/build"));
 }
 // const mongoDB =
 // 	"mongodb+srv://main:rsHmhNs8bib_ni4@cluster0-l36fj.mongodb.net/test?retryWrites=true&w=majority";

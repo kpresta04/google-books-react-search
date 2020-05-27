@@ -30,7 +30,7 @@ function BookCard(props) {
 		<div>
 			<div
 				className="max-w-sm w-full lg:max-w-full lg:flex"
-				style={{ outline: "2px solid grey", margin: "1em 0" }}
+				style={{ outline: "2px solid grey", margin: "1em auto" }}
 			>
 				<div className="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden items-center">
 					<img src={props.image} alt="Book" className="mx-auto my-auto"></img>

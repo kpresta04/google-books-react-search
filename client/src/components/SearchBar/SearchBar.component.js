@@ -6,6 +6,7 @@ import IconButton from "@material-ui/core/IconButton";
 import SearchIcon from "@material-ui/icons/Search";
 import { connect } from "react-redux";
 import searchAction from "../../actions/search";
+import "./searchBar.css";
 
 import axios from "axios";
 const APIkey = "AIzaSyAd2ZiCGgg-Oq-_F8ctUABllI41pQezQsk";
@@ -25,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 		display: "flex",
 		alignItems: "center",
 		margin: "2em auto",
-		maxWidth: 400,
+		maxWidth: 350,
 	},
 	input: {
 		marginLeft: theme.spacing(1),
